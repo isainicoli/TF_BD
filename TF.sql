@@ -51,7 +51,7 @@ ALTER TABLE Telefone ADD CONSTRAINT PK_Telefone PRIMARY KEY (nroTelefone, CPFPas
 
 CREATE TABLE Voo (
     codVoo VARCHAR2(25) NOT NULL,
-    dataVoo DATE NOT NULL, 
+    data DATE NOT NULL, 
     horaPartida TIMESTAMP NOT NULL,
     horaChegada TIMESTAMP NOT NULL,
     origem VARCHAR2(25) NOT NULL,
@@ -140,17 +140,17 @@ insert into Telefone (nroTelefone, CPFPassageiro) values ('51988888888', '555555
 
 
 --Inserindo na tabela Voo:
-insert into Voo (codVoo, dataVoo, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
+insert into Voo (codVoo, data, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
     values ('101', DATE '2026-12-10', TIMESTAMP '2026-12-10 08:00:00', TIMESTAMP '2026-12-10 09:30:00', 'Porto Alegre', '1', '1');
-insert into Voo (codVoo, dataVoo, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
+insert into Voo (codVoo, data, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
     values ('102', DATE '2026-12-10', TIMESTAMP '2026-12-10 14:30:00', TIMESTAMP '2026-12-10 16:15:00', 'Porto Alegre', '2', '2');
-insert into Voo (codVoo, dataVoo, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
+insert into Voo (codVoo, data, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
     values ('103', DATE '2026-12-12', TIMESTAMP '2026-12-12 09:00:00', TIMESTAMP '2026-12-12 21:30:00', 'São Paulo', '3', '5');
-insert into Voo (codVoo, dataVoo, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
+insert into Voo (codVoo, data, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
     values ('104', DATE '2026-12-15', TIMESTAMP '2026-12-15 07:45:00', TIMESTAMP '2026-12-15 09:10:00', 'Porto Alegre', '1', '3');
-insert into Voo (codVoo, dataVoo, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
+insert into Voo (codVoo, data, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
     values ('105', DATE '2026-12-18', TIMESTAMP '2026-12-18 18:00:00', TIMESTAMP '2026-12-18 20:20:00', 'Rio de Janeiro', '4', '4');
-insert into Voo (codVoo, dataVoo, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
+insert into Voo (codVoo, data, horaPartida, horaChegada, origem, IDDestino, prefixoAeronave)
     values ('106', DATE '2026-12-20', TIMESTAMP '2026-12-20 11:00:00', TIMESTAMP '2026-12-20 13:30:00', 'Porto Alegre', '5', '2');
 
 
@@ -183,7 +183,7 @@ insert into Reserva (codReserva, valor, dataReserva, dataCheckIn, portaoEmbarque
 commit;
 
 
---Buscando nome do Passageiro e o nroAssento do Assento, passando por Reserva para conectar Passageiro -> Assento
+--Buscando o nome de cada passageiro e o número do assento de cada reserva que ele fez (Passageiro -> Reserva):
 select p.nome, r.nroAssento
 from Passageiro p
 inner join Reserva r
@@ -249,7 +249,7 @@ where CPFPassageiro = '33333333333' or CPFPassageiro = '44444444444';
 
 --Buscando com filtro na tabela Voo:
 --Código do voo, data e a hora da partida, de todos os voos com seus códigos entre 102 e 106.
-select codVoo, dataVoo, horaPartida
+select codVoo, data, horaPartida
 from Voo
 where codVoo between '102' and '106';
 
@@ -259,12 +259,3 @@ select min(valor), max(valor)
 from Reserva
 where valor > 500
 group by codReserva;
-
-
---drop table Reserva;
---drop table Voo;
---drop table Telefone;
---drop table Passageiro;
---drop table Destino;
---drop table Assento;
---drop table Aeronave;
